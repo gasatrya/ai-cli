@@ -13,8 +13,8 @@ Since this package isn't published to npm yet, you can install it locally:
 
 1. Clone this repository
 ```bash
-git clone [your-repository-url]
-cd [repository-name]
+git clone git@github.com:gasatrya/ai-cli.git
+cd ai-cli
 ```
 
 2. Install dependencies
@@ -77,7 +77,3 @@ Goodbye!
 ## Configuration File
 
 The configuration is stored in `~/.ai-cli-config.json` in your home directory.
-
-## License
-
-[Your chosen license]
