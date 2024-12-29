@@ -11,13 +11,13 @@ export function loadConfig() {
     return {
       apiKey: config.apiKey || null,
       model: config.model || 'gpt-4o-2024-11-20',
-      conversationHistory: config.conversationHistory || []
+      conversationHistory: config.conversationHistory || [],
     }
   }
-  return { 
-    apiKey: null, 
+  return {
+    apiKey: null,
     model: 'gpt-4o-2024-11-20',
-    conversationHistory: []
+    conversationHistory: [],
   }
 }
 
