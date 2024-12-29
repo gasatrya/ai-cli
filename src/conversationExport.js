@@ -19,13 +19,11 @@ export function saveConversation(config, format = 'json') {
       break
     case 'md':
       content = config.conversationHistory
-        .map(msg => `**${msg.role}**: ${msg.content}`)
+        .map((msg) => `**${msg.role}**: ${msg.content}`)
         .join('\n\n')
       break
     case 'txt':
-      content = config.conversationHistory
-        .map(msg => `${msg.role}: ${msg.content}`)
-        .join('\n\n')
+      content = config.conversationHistory.map((msg) => `${msg.role}: ${msg.content}`).join('\n\n')
       break
     default:
       throw new Error('Unsupported format')
