@@ -8,12 +8,13 @@ export async function saveConversation(config, format = 'json') {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const defaultFilename = `conversation-${timestamp}.${format}`
   const latestFilename = `conversation-latest.${format}`
+  const latestFilePath = path.join(config.saveLocation, latestFilename)
 
   let filename = defaultFilename
   let filePath = path.join(config.saveLocation, filename)
 
-  // Show prompt if saving the same format again
-  if (config.lastSaveFormat === format) {
+  // Show prompt if a file of the same format exists
+  if (fs.existsSync(latestFilePath)) {
     const { action } = await inquirer.prompt([
       {
         type: 'list',
@@ -28,7 +29,7 @@ export async function saveConversation(config, format = 'json') {
 
     if (action === 'overwrite') {
       filename = latestFilename
-      filePath = path.join(config.saveLocation, filename)
+      filePath = latestFilePath
     }
   }
 
