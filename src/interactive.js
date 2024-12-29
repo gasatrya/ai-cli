@@ -2,6 +2,7 @@ import readline from 'readline'
 import { askAI } from './ai.js'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
+import { saveConversation } from './conversationExport.js'
 
 export function startInteractiveSession(config) {
   const rl = readline.createInterface({
@@ -54,6 +55,17 @@ export function startInteractiveSession(config) {
         console.log(chalk.green('Conversation history cleared.'))
       } else {
         console.log(chalk.yellow('Clear operation cancelled.'))
+      }
+      rl.prompt()
+      return
+    }
+
+    if (input.toLowerCase().startsWith('!save')) {
+      const format = input.split(' ')[1] || 'json'
+      try {
+        await saveConversation(config, format)
+      } catch (error) {
+        console.log(chalk.red(`Error saving conversation: ${error.message}`))
       }
       rl.prompt()
       return

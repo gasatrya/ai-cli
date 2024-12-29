@@ -15,7 +15,8 @@ export async function configMenu() {
       choices: [
         { name: 'Add API Key', value: '1' },
         { name: 'Choose Model', value: '2' },
-        { name: 'Exit', value: '3' },
+        { name: 'Set Save Location', value: '3' },
+        { name: 'Exit', value: '4' },
       ],
     },
   ])
@@ -53,6 +54,19 @@ export async function configMenu() {
       break
 
     case '3':
+      const { saveLocation } = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'saveLocation',
+          message: 'Enter save location path:',
+          default: config.saveLocation,
+        },
+      ])
+      config.saveLocation = saveLocation
+      saveConfig(config)
+      console.log(chalk.green('Save location updated successfully!'))
+      break
+    case '4':
       break
   }
 }
