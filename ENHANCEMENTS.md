@@ -7,6 +7,17 @@
 - Configuration management
 - Model selection
 - Interactive prompt
+- [x] Add conversation history tracking
+
+### Conversation History Implementation Details
+
+- History stored in config file (~/.ai-cli-config.json)
+- Persists between sessions
+- Maintains context across messages
+- Includes both user and AI messages
+- Accessible via !history command
+- Clearable via !clear command
+- Used as context for subsequent AI responses
 
 ## Proposed Enhancements
 
