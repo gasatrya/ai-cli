@@ -18,7 +18,7 @@ export function startInteractiveSession(config) {
       console.log(chalk.yellow('No conversation history yet.'))
       return
     }
-    
+
     config.conversationHistory.forEach((message, index) => {
       const prefix = message.role === 'user' ? chalk.blue('You:') : chalk.green('AI:')
       console.log(`${chalk.gray(`[${index + 1}]`)} ${prefix} ${message.content}`)
