@@ -1,10 +1,38 @@
 import fs from 'fs'
 import path from 'path'
 import chalk from 'chalk'
+import inquirer from 'inquirer'
 
-export function saveConversation(config, format = 'json') {
+export async function saveConversation(config, format = 'json') {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
-  const filename = `conversation-${timestamp}.${format}`
+  const defaultFilename = `conversation-${timestamp}.${format}`
+  const latestFilename = `conversation-latest.${format}`
+  
+  // Check if latest file exists for this specific format
+  const latestFilePath = path.join(config.saveLocation, latestFilename)
+  const fileExists = fs.existsSync(latestFilePath)
+
+  let filename = defaultFilename
+  
+  // Show prompt if saving the same format again
+  if (fileExists) {
+    const { action } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'action',
+        message: `A previous ${format} file exists. What would you like to do?`,
+        choices: [
+          { name: `Create new ${format} file with timestamp`, value: 'new' },
+          { name: `Overwrite latest ${format} file`, value: 'overwrite' },
+        ],
+      },
+    ])
+
+    if (action === 'overwrite') {
+      filename = latestFilename
+    }
+  }
+
   const filePath = path.join(config.saveLocation, filename)
 
   // Create save directory if it doesn't exist
