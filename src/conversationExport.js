@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
+import { saveConfig } from './config.js'
 
 export async function saveConversation(config, format = 'json') {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
