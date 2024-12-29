@@ -18,7 +18,7 @@ export function loadConfig() {
     apiKey: null,
     model: 'gpt-4o-2024-11-20',
     conversationHistory: [],
-    saveLocation: config.saveLocation || path.join(os.homedir(), 'ai-cli-conversations')
+    saveLocation: config.saveLocation || path.join(os.homedir(), 'ai-cli-conversations'),
   }
 }
 
