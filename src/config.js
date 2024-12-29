@@ -13,6 +13,7 @@ export function loadConfig() {
       model: config.model || 'gpt-4o-2024-11-20',
       conversationHistory: config.conversationHistory || [],
       saveLocation: config.saveLocation || path.join(os.homedir(), 'ai-cli-conversations'),
+      lastSaveFormat: config.lastSaveFormat || null,
     }
   }
   return {
@@ -20,6 +21,7 @@ export function loadConfig() {
     model: 'gpt-4o-2024-11-20',
     conversationHistory: [],
     saveLocation: path.join(os.homedir(), 'ai-cli-conversations'),
+    lastSaveFormat: null,
   }
 }
 

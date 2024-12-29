@@ -8,14 +8,10 @@ export async function saveConversation(config, format = 'json') {
   const defaultFilename = `conversation-${timestamp}.${format}`
   const latestFilename = `conversation-latest.${format}`
 
-  // Check if latest file exists for this specific format
-  const latestFilePath = path.join(config.saveLocation, latestFilename)
-  const fileExists = fs.existsSync(latestFilePath)
-
   let filename = defaultFilename
 
   // Show prompt if saving the same format again
-  if (fileExists) {
+  if (config.lastSaveFormat === format) {
     const { action } = await inquirer.prompt([
       {
         type: 'list',
@@ -59,4 +55,8 @@ export async function saveConversation(config, format = 'json') {
 
   fs.writeFileSync(filePath, content)
   console.log(chalk.green(`Conversation saved to ${filePath}`))
+  
+  // Update last saved format
+  config.lastSaveFormat = format
+  saveConfig(config)
 }
