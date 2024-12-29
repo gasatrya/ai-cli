@@ -12,14 +12,14 @@ export function loadConfig() {
       apiKey: config.apiKey || null,
       model: config.model || 'gpt-4o-2024-11-20',
       conversationHistory: config.conversationHistory || [],
-      saveLocation: config.saveLocation || path.join(os.homedir(), 'ai-cli-conversations')
+      saveLocation: config.saveLocation || path.join(os.homedir(), 'ai-cli-conversations'),
     }
   }
   return {
     apiKey: null,
     model: 'gpt-4o-2024-11-20',
     conversationHistory: [],
-    saveLocation: path.join(os.homedir(), 'ai-cli-conversations')
+    saveLocation: path.join(os.homedir(), 'ai-cli-conversations'),
   }
 }
 

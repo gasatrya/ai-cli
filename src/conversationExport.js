@@ -7,13 +7,13 @@ export async function saveConversation(config, format = 'json') {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
   const defaultFilename = `conversation-${timestamp}.${format}`
   const latestFilename = `conversation-latest.${format}`
-  
+
   // Check if latest file exists for this specific format
   const latestFilePath = path.join(config.saveLocation, latestFilename)
   const fileExists = fs.existsSync(latestFilePath)
 
   let filename = defaultFilename
-  
+
   // Show prompt if saving the same format again
   if (fileExists) {
     const { action } = await inquirer.prompt([
