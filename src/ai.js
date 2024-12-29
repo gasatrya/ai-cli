@@ -31,16 +31,22 @@ export async function askAI(question, config) {
 
     startLoader()
 
+    // Add user message to history
+    config.conversationHistory.push({ role: 'user', content: question })
+
     const response = await openai.chat.completions.create({
       model: config.model,
-      messages: [{ role: 'user', content: question }],
+      messages: config.conversationHistory,
     })
 
     stopLoader()
 
+    // Add AI response to history
+    const aiResponse = response.choices[0].message.content
+    config.conversationHistory.push({ role: 'assistant', content: aiResponse })
+
     // Render the AI's response as markdown
-    const aiResponse = markdown(response.choices[0].message.content)
-    console.log(aiResponse)
+    console.log(markdown(aiResponse))
   } catch (error) {
     stopLoader()
     console.error(chalk.red('Error:', error.message))
