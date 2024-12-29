@@ -10,6 +10,7 @@ export async function saveConversation(config, format = 'json') {
   const latestFilename = `conversation-latest.${format}`
 
   let filename = defaultFilename
+  let filePath = path.join(config.saveLocation, filename)
 
   // Show prompt if saving the same format again
   if (config.lastSaveFormat === format) {
@@ -27,10 +28,9 @@ export async function saveConversation(config, format = 'json') {
 
     if (action === 'overwrite') {
       filename = latestFilename
+      filePath = path.join(config.saveLocation, filename)
     }
   }
-
-  const filePath = path.join(config.saveLocation, filename)
 
   // Create save directory if it doesn't exist
   if (!fs.existsSync(config.saveLocation)) {

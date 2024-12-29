@@ -28,54 +28,58 @@ export function startInteractiveSession(config) {
   }
 
   rl.on('line', async (input) => {
-    if (input.toLowerCase() === 'exit') {
-      console.log(chalk.yellow('Goodbye!'))
-      rl.close()
-      process.exit(0)
-    }
-
-    if (input.toLowerCase() === '!history') {
-      showHistory(config)
-      rl.prompt()
-      return
-    }
-
-    if (input.toLowerCase() === '!clear') {
-      const { confirm } = await inquirer.prompt([
-        {
-          type: 'confirm',
-          name: 'confirm',
-          message: 'Are you sure you want to clear the conversation history?',
-          default: false,
-        },
-      ])
-
-      if (confirm) {
-        config.conversationHistory = []
-        console.log(chalk.green('Conversation history cleared.'))
-      } else {
-        console.log(chalk.yellow('Clear operation cancelled.'))
+    try {
+      if (input.toLowerCase() === 'exit') {
+        console.log(chalk.yellow('Goodbye!'))
+        rl.close()
+        process.exit(0)
       }
-      rl.prompt()
-      return
-    }
 
-    if (input.toLowerCase().startsWith('!save')) {
-      const format = input.split(' ')[1] || 'json'
-      try {
-        await saveConversation(config, format)
-      } catch (error) {
-        console.log(chalk.red(`Error saving conversation: ${error.message}`))
+      if (input.toLowerCase() === '!history') {
+        showHistory(config)
+        rl.prompt()
+        return
       }
+
+      if (input.toLowerCase() === '!clear') {
+        const { confirm } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'confirm',
+            message: 'Are you sure you want to clear the conversation history?',
+            default: false,
+          },
+        ])
+
+        if (confirm) {
+          config.conversationHistory = []
+          console.log(chalk.green('Conversation history cleared.'))
+        } else {
+          console.log(chalk.yellow('Clear operation cancelled.'))
+        }
+        rl.prompt()
+        return
+      }
+
+      if (input.toLowerCase().startsWith('!save')) {
+        const format = input.split(' ')[1] || 'json'
+        try {
+          await saveConversation(config, format)
+        } catch (error) {
+          console.log(chalk.red(`Error saving conversation: ${error.message}`))
+        }
+        rl.prompt()
+        return
+      }
+
+      if (input.trim()) {
+        await askAI(input, config)
+      }
+    } catch (error) {
+      console.log(chalk.red(`Error: ${error.message}`))
+    } finally {
       rl.prompt()
-      return
     }
-
-    if (input.trim()) {
-      await askAI(input, config)
-    }
-
-    rl.prompt()
   }).on('close', () => {
     process.exit(0)
   })
