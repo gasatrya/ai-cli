@@ -1,6 +1,7 @@
 import readline from 'readline'
 import { askAI } from './ai.js'
 import chalk from 'chalk'
+import inquirer from 'inquirer'
 
 export function startInteractiveSession(config) {
   const rl = readline.createInterface({
@@ -39,8 +40,21 @@ export function startInteractiveSession(config) {
     }
 
     if (input.toLowerCase() === '!clear') {
-      config.conversationHistory = []
-      console.log(chalk.green('Conversation history cleared.'))
+      const { confirm } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'confirm',
+          message: 'Are you sure you want to clear the conversation history?',
+          default: false,
+        },
+      ])
+
+      if (confirm) {
+        config.conversationHistory = []
+        console.log(chalk.green('Conversation history cleared.'))
+      } else {
+        console.log(chalk.yellow('Clear operation cancelled.'))
+      }
       rl.prompt()
       return
     }
