@@ -18,7 +18,7 @@ if (!config.apiKey) {
       mask: '*',
     },
   ])
-  
+
   config.apiKey = apiKey
   saveConfig(config)
   console.log(chalk.green('API key saved successfully!'))

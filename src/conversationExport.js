@@ -57,7 +57,7 @@ export async function saveConversation(config, format = 'json') {
 
   fs.writeFileSync(filePath, content)
   console.log(chalk.green(`Conversation saved to ${filePath}`))
-  
+
   // Update last saved format
   config.lastSaveFormat = format
   saveConfig(config)

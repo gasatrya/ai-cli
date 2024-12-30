@@ -2,11 +2,11 @@
 
 ## Implemented Features
 
-- Basic CLI interface
-- OpenAI API integration
-- Configuration management
-- Model selection
-- Interactive prompt
+- [x] Basic CLI interface
+- [x] OpenAI API integration
+- [x] Configuration management
+- [x] Model selection
+- [x] Interactive prompt
 - [x] Add conversation history tracking
 
 ### Conversation History Implementation Details
@@ -23,11 +23,19 @@
 
 ### 1. Conversation Management
 
-- [ ] Add conversation history tracking
 - [ ] Save conversations to file
-- [ ] Load previous conversations
-- [ ] Multiple conversation threads
-- [ ] Conversation context maintenance
+      issues:
+  - [ ] Overwrite existing file if exist
+  - [ ] Auto-save on exit
+  - [ ] Create new file if user requests
+  - [ ] Add timestamp to file name
+  - [ ] Allow user to specify file name
+    - [ ] If file exists, prompt user to overwrite or create a new one
+  - [ ] Allow user to specify file location
+    - [ ] If file exists, prompt user to overwrite or create a new one
+  - [ ] Load previous conversations
+  - [ ] Multiple conversation threads
+  - [ ] Conversation context maintenance
 
 ### 2. Interactive Commands
 
